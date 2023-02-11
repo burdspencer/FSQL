@@ -1,9 +1,48 @@
 import urllib.request
 import json #might use this idk
 #import pickle #might use this idk
-from datetime import datetime
+from datetime import datetime as dt
+from datetime import timedelta as td
 import os as os
+
+
+
 apiKey = '?key=668aa1ee702b49f5a66935b7cce375ca'
+
+
+def refreshData(url, apiKey, fileName):
+    
+
+    updateDateTime = dt.today()
+    updateDateTime = updateDateTime.replace(year=1900)
+    
+    if os.path.isfile(fileName + ".json") == True:
+        with open(fileName + ".json","r") as openfile:
+            json_object = json.load(openfile)
+            fileDict = json.loads(json_object)
+            updateDateTime = dt.strptime(fileDict["UpdatedAt"], "%d/%m/%Y %H:%M:%S")
+    
+    if(updateDateTime != dt.today()): #if update timestamp is greater than one day old, continue
+        
+        returnedData = urllib.request.urlopen(url + apiKey).read()
+
+        #Get the current date and time for version control
+        now = dt.today()
+        dt_string = now.strftime("%m/%d/%Y %H:%M:%S")
+        
+        #Decode and load each into JSON object
+        dataString = returnedData.decode("utf-8")
+        dataDict = json.loads(dataString)[0]
+        dataDict["UpdatedAt"] = dt_string
+        dataJSON = json.dumps(dataDict)
+        
+        with open(fileName + ".json","w") as outfile:
+            json.dump(dataJSON, outfile)
+        
+        print(updateDateTime)
+        print(now)
+        
+
 
 #Timeframes (NFL ONLY)
 #Because the NFL is a weekly sport, dates aren't as useful as weeks for point-in-time context. 
@@ -13,55 +52,24 @@ apiKey = '?key=668aa1ee702b49f5a66935b7cce375ca'
 # dynamically pull team/player stats for the current week, by getting the current week from timeframe API, 
 # then passing that along to the other APIs. 
 #https://sportsdata.io/developers/api-documentation/nfl#/endpoint/timeframes
-
 #Check if a CurrentTimeFrames file has been Updated within the last 24 hours
-if os.path.isfile("CurrentTimeFrame.json") == True:
-    print("yes")
-    with open("CurrentTimeFrame.json","r") as openfile:
-        json_object = json.load(openfile)
-        print(json_object)
 
-    if(json_object["UpdatedAt"] == datetime.now.days - 1):
-        print(1)
-
-
-        #API Endpoints to gather Current and Completed NFL TimeFrames
-        getCurrentTimeFramesURL = 'https://api.sportsdata.io/v3/nfl/scores/json/Timeframes/current'
-        getCompletedTimeFramesURL = 'https://api.sportsdata.io/v3/nfl/scores/json/Timeframes/complete'
-
-        currentTimeFrames = urllib.request.urlopen(getCurrentTimeFramesURL + apiKey).read()
-        completedTimeFrames = urllib.request.urlopen(getCompletedTimeFramesURL + apiKey).read()
-
-        #Get the current date and time for version control
-        now = datetime.now()
-        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-
-        #Decode and load each into JSON object
-        currentTimeFramesString = currentTimeFrames.decode("utf-8")
-        currentTimeFramesList = json.loads(currentTimeFramesString)[0]
-        currentTimeFramesList["UpdatedAt"] = dt_string
-        currentTimeFramesJSON = json.dumps(currentTimeFramesList)
-
-        completedTimeFramesString = completedTimeFrames.decode("utf-8")
-        completedTimeFramesList = json.loads(completedTimeFramesString)[0]
-        completedTimeFramesList["UpdatedAt"] = dt_string
-        completedTimeFramesJSON = json.dumps(completedTimeFramesList)
-
-
-        with open("CurrentTimeFrame.json","w") as outfile:
-            json.dump(currentTimeFramesJSON, outfile)
-
-        with open("CompletedTimeFrames.json","w") as outfile:
-            json.dump(completedTimeFramesJSON, outfile)
-
-
-
+getCurrentTimeFramesURL = 'https://api.sportsdata.io/v3/nfl/scores/json/Timeframes/current'
+getCompletedTimeFramesURL = 'https://api.sportsdata.io/v3/nfl/scores/json/Timeframes/complete'
+    
+refreshData(getCurrentTimeFramesURL, apiKey, "CurrentTimeFrames")
+refreshData(getCompletedTimeFramesURL, apiKey, "CompletedTimeFrames")
+    
 #Teams
 # Sync the team data every evening to ensure you have the latest team information. 
-
+getActiveTeamsURL = 'https://api.sportsdata.io/v3/nfl/scores/json/Teams'
+refreshData(getActiveTeamsURL, apiKey, "ActiveTeams")
+        
 #Schedule
 #Sync the schedules once every hour to ensure you have the most up-to-date start times for games in your database. 
 # The schedule feed includes odds and weather (for NFL and MLB only). 
+getScheduleURL = 'https://api.sportsdata.io/v3/nfl/scores/json/Schedules/2022'
+refreshData(getScheduleURL, apiKey, "2022Schedule")
 
 #Standings
 #Sync standings every evening or once every hour if you prefer. 
