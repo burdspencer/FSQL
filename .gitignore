@@ -1,1 +1,5 @@
 *.json
+*.ipynb
+Feathers
+Deprecated SQL Scripts/Python-Generated
+Deprecated/run-nfl-script.bat
