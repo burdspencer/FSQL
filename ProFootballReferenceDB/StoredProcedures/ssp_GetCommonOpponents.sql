@@ -9,10 +9,10 @@ BEGIN TRY
 		SET @Season = 2023
 
 	IF @Team IS NULL
-		PRINT 'Away Team Parameter is null'
+		PRINT 'Team Parameter is null'
 
 	IF @Opponent IS NULL
-		PRINT 'Home Team Parameter is null'
+		PRINT 'Opponent Parameter is null'
 
 	IF OBJECT_ID('tempdb..#TeamMatchups', 'U') IS NOT NULL
 		DROP TABLE #TeamMatchups
