@@ -1,2 +1,0 @@
-CREATE TABLE Teams
-(FullName VARCHAR(35), TeamCode VARCHAR(3), LogoURL VARCHAR(MAX))

@@ -1,7 +1,7 @@
 USE [ProFootballReference]
 GO
 
-/****** Object:  Table [dbo].[GameData]    Script Date: 3/10/2023 11:20:11 PM ******/
+/****** Object:  Table [dbo].[GameData]    Script Date: 4/17/2023 11:40:58 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -12,7 +12,7 @@ CREATE TABLE [dbo].[GameData](
 	[GameDataId] [int] IDENTITY(1,1) NOT NULL,
 	[HomeTeam] [varchar](100) NOT NULL,
 	[AwayTeam] [varchar](100) NOT NULL,
-	[Week] [varchar](20) NOT NULL,
+	[Week] [int] NULL,
 	[Day] [varchar](5) NOT NULL,
 	[Time] [varchar](25) NOT NULL,
 	[Date] [date] NOT NULL,
@@ -48,7 +48,76 @@ CREATE TABLE [dbo].[GameData](
 	[AwayDefTO] [int] NULL,
 	[AwayExPointsOff] [decimal](5, 2) NULL,
 	[AwayExPointsDef] [decimal](5, 2) NULL,
-	[AwayExPointsSpecial] [decimal](5, 2) NULL
+	[AwayExPointsSpecial] [decimal](5, 2) NULL,
+	[HomeOddsOpen] [decimal](5, 2) NULL,
+	[HomeOddsMin] [decimal](5, 2) NULL,
+	[HomeOddsMax] [decimal](5, 2) NULL,
+	[HomeOddsClose] [decimal](5, 2) NULL,
+	[AwayOddsOpen] [decimal](5, 2) NULL,
+	[AwayOddsMin] [decimal](5, 2) NULL,
+	[AwayOddsMax] [decimal](5, 2) NULL,
+	[AwayOddsClose] [decimal](5, 2) NULL,
+	[HomeLineOpen] [decimal](5, 2) NULL,
+	[HomeLineMin] [decimal](5, 2) NULL,
+	[HomeLineMax] [decimal](5, 2) NULL,
+	[HomeLineClose] [decimal](5, 2) NULL,
+	[AwayLineOpen] [decimal](5, 2) NULL,
+	[AwayLineMin] [decimal](5, 2) NULL,
+	[AwayLineMax] [decimal](5, 2) NULL,
+	[AwayLineClose] [decimal](5, 2) NULL,
+	[HomeLineOddsOpen] [decimal](5, 2) NULL,
+	[HomeLineOddsMin] [decimal](5, 2) NULL,
+	[HomeLineOddsMax] [decimal](5, 2) NULL,
+	[HomeLineOddsClose] [decimal](5, 2) NULL,
+	[AwayLineOddsOpen] [decimal](5, 2) NULL,
+	[AwayLineOddsMin] [decimal](5, 2) NULL,
+	[AwayLineOddsMax] [decimal](5, 2) NULL,
+	[AwayLineOddsClose] [decimal](5, 2) NULL,
+	[TotalScoreOpen] [decimal](5, 2) NULL,
+	[TotalScoreMin] [decimal](5, 2) NULL,
+	[TotalScoreMax] [decimal](5, 2) NULL,
+	[TotalScoreClose] [decimal](5, 2) NULL,
+	[TotalScoreOverOpen] [decimal](5, 2) NULL,
+	[TotalScoreOverMin] [decimal](5, 2) NULL,
+	[TotalScoreOverMax] [decimal](5, 2) NULL,
+	[TotalScoreOverClose] [decimal](5, 2) NULL,
+	[TotalScoreUnderOpen] [decimal](5, 2) NULL,
+	[TotalScoreUnderMin] [decimal](5, 2) NULL,
+	[TotalScoreUnderMax] [decimal](5, 2) NULL,
+	[TotalScoreUnderClose] [decimal](5, 2) NULL,
+	[ImpliedProbabilityOutrightPick] [varchar](10) NULL,
+	[ImpliedProbabilityOutrightPickHomeAway] [varchar](10) NULL,
+	[ImpliedProbabilityOutrightPickFavDog] [varchar](10) NULL,
+	[ImpliedProbabilityOutrightPickCorrect] [varchar](1) NULL,
+	[ImpliedProbabilityOutrightPickHACorrect] [varchar](1) NULL,
+	[ImpliedProbabilityOutrightPickFDCorrect] [varchar](1) NULL,
+	[ImpliedProbabilitySpreadPick] [varchar](10) NULL,
+	[ImpliedProbabilitySpreadPickHomeAway] [varchar](10) NULL,
+	[ImpliedProbabilitySpreadPickFavDog] [varchar](10) NULL,
+	[ImpliedProbabilitySpreadPickHACorrect] [varchar](1) NULL,
+	[ImpliedProbabilitySpreadPickFDCorrect] [varchar](1) NULL,
+	[ImpliedProbabilitySpreadPickCorrect] [varchar](1) NULL,
+	[ImpliedProbabilityTotalPick] [varchar](10) NULL,
+	[ImpliedProbabilityTotalPickCorrect] [varchar](1) NULL,
+	[ImpliedProbabilityOutrightPickWager] [decimal](7, 2) NULL,
+	[ImpliedProbabilityOutrightPickHomeAwayWager] [decimal](7, 2) NULL,
+	[ImpliedProbabilityOutrightPickFavDogWager] [decimal](7, 2) NULL,
+	[ImpliedProbabilitySpreadPickWager] [decimal](7, 2) NULL,
+	[ImpliedProbabilitySpreadPickHomeAwayWager] [decimal](7, 2) NULL,
+	[ImpliedProbabilitySpreadPickFavDogWager] [decimal](7, 2) NULL,
+	[ImpliedProbabilityTotalPickWager] [decimal](7, 2) NULL,
+	[ImpliedProbabilityOutrightPickWagerProfit] [decimal](11, 2) NULL,
+	[ImpliedProbabilityOutrightPickHomeAwayWagerProfit] [decimal](11, 2) NULL,
+	[ImpliedProbabilityOutrightPickFavDogWagerProfit] [decimal](11, 2) NULL,
+	[ImpliedProbabilitySpreadPickWagerProfit] [decimal](11, 2) NULL,
+	[ImpliedProbabilitySpreadPickHomeAwayWagerProfit] [decimal](11, 2) NULL,
+	[ImpliedProbabilitySpreadPickFavDogWagerProfit] [decimal](11, 2) NULL,
+	[ImpliedProbabilityTotalPickWagerProfit] [decimal](11, 2) NULL
+ CONSTRAINT [PK_GameData] PRIMARY KEY CLUSTERED 
+(
+	[GameDataId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
 
