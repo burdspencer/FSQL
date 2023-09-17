@@ -1,5 +1,4 @@
 *.json
-*.ipynb
 Feathers
 Deprecated SQL Scripts/Python-Generated
 Deprecated/run-nfl-script.bat
@@ -8,3 +7,10 @@ Deprecated Scripts and Files
 Deprecated SQL Scripts
 Workbench
 Workbench*
+/ProFootballReferenceDB/Data Insert Scripts/GameDataImport.txt
+/ProFootballReferenceDB/Data Insert Scripts/InsertScript_Seasons.sql
+*.csv
+/.ipynb_checkpoints
+.vs/PigskinProbability/v16
+.vs
+README.md
