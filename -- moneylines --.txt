@@ -1,0 +1,21 @@
+-- moneylines --
+M1. home favorite
+M2. home underdog
+M3. away favorite
+M4. away underdog
+M5. home even
+M6. away even
+M7. tie
+
+-- spread --
+S1. home favorite
+S2. home underdog
+S3. away favorite
+S4. away underdog
+S5. home even -- unneeded
+S6. away even -- unneeded
+
+--totals --
+T1. Under
+T2. Over
+T3. Push
