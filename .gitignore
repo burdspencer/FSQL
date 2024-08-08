@@ -14,3 +14,5 @@ Workbench*
 .vs/PigskinProbability/v16
 .vs
 README.md
+*.feather
+*.docx
