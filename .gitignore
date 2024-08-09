@@ -16,3 +16,4 @@ Workbench*
 README.md
 *.feather
 *.docx
+.venv/
